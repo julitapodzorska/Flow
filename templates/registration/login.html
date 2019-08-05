@@ -5,16 +5,16 @@
 
 {% block content %}
 <div class="login-form">
-  <h2>Flow 💗</h2>
     <form method="post">
         {% csrf_token %}
         Nazwa użytkownika: <br>
         {{ form.username }}<br>
         Hasło: <br>
-        {{ form.password }}<br>
+        {{ form.password }}<br><br>
+    <button type="submit">Zaloguj!</button>
     </form>
+    <a class="signup" href="/accounts/signup"><button>Załóż konto! </button></a>
 </div>
-    <button type="submit">Zaloguj!💗</button>
 {% endblock %}
 
 

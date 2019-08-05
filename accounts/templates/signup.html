@@ -3,6 +3,7 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
+<div class="login-form">
   <h2>Zarejestruj się!</h2>
   <form method="post">
     {% csrf_token %}
@@ -11,15 +12,15 @@
         {{ field.label_tag }}<br>
         {{ field }}
         {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
+          <small style="color: grey"> <br> {{ field.help_text }}</small>
         {% endif %}
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
-      </p>
     {% endfor %}
-    <button type="submit">Zarejestruj się! 💗</button>
+    <br><button type="submit">Zarejestruj się!</button>
   </form>
+</div>
 {% endblock %}
 
 
