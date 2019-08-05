@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% csrf_token %}
+{% block title %}Login{% endblock %}
+
+
+{% block content %}
+<div class="login-form">
+  <h2>Flow 💗</h2>
+    <form method="post">
+        {% csrf_token %}
+        Nazwa użytkownika: <br>
+        {{ form.username }}<br>
+        Hasło: <br>
+        {{ form.password }}<br>
+    </form>
+</div>
+    <button type="submit">Zaloguj!💗</button>
+{% endblock %}
+
+
