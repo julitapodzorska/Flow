@@ -22,11 +22,14 @@ class HomePage(View):
             print(bleeding_length)
 
 
-
+            ovulation_start = int(user.avg_cycle /2)
+            ovulation_end = ovulation_start + 5
             cycle_day = date.today() - user.last_cycle
             cycle_day = int(cycle_day.days) +1
             print(bleeding_days, cycle_day)
-            context = {'cycle_length':range(1, request.user.avg_cycle+1), 'cycle_day' : cycle_day, 'form': form, 'bleeding_days': bleeding_length}
+            context = {'cycle_length':range(1, request.user.avg_cycle+1),
+                       'cycle_day' : cycle_day, 'form': form, 'bleeding_days': bleeding_length,
+                       'ovulation_start': ovulation_start, 'ovulation_end': ovulation_end}
             return render(request, 'home.html', context)
         else:
             return redirect('/accounts/login')
