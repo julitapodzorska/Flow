@@ -11,16 +11,13 @@ class HomePage(View):
         form = HealthForm()
         if request.user.is_authenticated:
             user = User.objects.get(username=request.user.username)
-            bleeding_days = len(HealthData.objects.filter(date__gte=user.last_cycle).filter(bleeding__gte=1).filter(user = user))
             try:
-                bleeding_days2 = HealthData.objects.filter(date__gte=user.last_cycle).filter(bleeding__gte=1).filter(user = user)
-                bleeding_days2 = bleeding_days2.order_by('date')
-                bleeding_length = bleeding_days2.last().date - user.last_cycle
+                bleeding_days = HealthData.objects.filter(date__gte=user.last_cycle).filter(bleeding__gte=1).filter(user = user)
+                bleeding_days = bleeding_days.order_by('date')
+                bleeding_length = bleeding_days.last().date - user.last_cycle
                 bleeding_length = int(bleeding_length.days)+1
             except:
                 bleeding_length = 1
-            print(bleeding_length)
-
 
             ovulation_start = int(user.avg_cycle /2)
             ovulation_end = ovulation_start + 5
