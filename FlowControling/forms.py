@@ -2,6 +2,19 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from .models import User, HealthData, BLEEDING, PAIN, MOOD, SEX, ENERGY
 
+
+DATE = (
+
+        (0, 'Dziś'),
+        (1, 'Wczoraj'),
+        (2, 'Przedwczoraj'),
+
+)
+
+
+
+
+
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(label = "Nazwa użytkownika", max_length=64)
     first_name = forms.CharField(label="Imię",max_length=30, required=True)
@@ -30,8 +43,6 @@ class HealthForm(forms.Form):
     mood = forms.ChoiceField(choices=MOOD, label="Nastrój")
     sex = forms.ChoiceField(choices=SEX, label="Seks")
     energy = forms.ChoiceField(choices=ENERGY, label="Poziom energii")
-    notes = forms.CharField(max_length=256, label="Informacje dodatkowe", required=None)
-    date = forms.DateField(widget=forms.SelectDateWidget, label="Data",)
-
+    date = forms.ChoiceField(choices=DATE, label="Dzień")
 
 

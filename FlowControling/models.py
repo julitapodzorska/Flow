@@ -7,10 +7,9 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 BLEEDING = (
 
         (0, '-'),
-        (1, 'brak'),
-        (2, 'słabe'),
-        (3, 'umiarkowane'),
-        (4, 'obfite'),
+        (1, 'słabe'),
+        (2, 'umiarkowane'),
+        (3, 'obfite'),
 
 )
 

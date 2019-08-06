@@ -4,19 +4,30 @@
 
 
 {% block content %}
-    <p>Cześć {{ user.username }}!</p>
+    <p>Cześć {{ user.first_name }}!</p>
     Średnia długosc cyklu to {{ user.avg_cycle }} dni. <br>
     Twój cykl rozpoczął się {{ user.last_cycle }}
     <div class="cycle">
         <ul>
             {% for i in cycle_length %}
+
                 {% if i == cycle_day%}
-                    <li class="today">{{ i }}</li>
+                    {% if i <= bleeding_days %}
+                        <li class="today bleeding">{{ i }}</li>
+                    {% else %}
+                        <li class="today">{{ i }}</li>
+                    {% endif %}
                 {% elif i < cycle_day %}
-                    <li class="past">{{ i }}</li>
+                     {% if i <= bleeding_days %}
+                        <li class="past bleeding">{{ i }}</li>
+                    {% else %}
+                        <li class="past">{{ i }}</li>
+                    {% endif %}
                 {% else %}
                     <li class="future">{{ i }}</li>
                 {% endif %}
+
+
             {% endfor %}
         </ul>
     </div>
@@ -33,8 +44,7 @@
 
     <script>
         elements = document.querySelectorAll(".past, .today, .future");
-        elements2 = document.querySelectorAll(".past, .today");
-        hidden_input = document.querySelector("input[name=date_offset]");
+
 
         let saved_day = "0";
         for (let element of elements){
