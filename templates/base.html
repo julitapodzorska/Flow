@@ -2,11 +2,11 @@
 <html lang="pl">
 <head>
     <style>
-        html {
+        body {
             margin: 0 ;
-            padding: 0;
-            background-color: lavender;
+            background-color: white;
             font-family: Tahoma, Geneva, sans-serif;
+            color: #ff8eb1;
 
         }
         .login-form {
@@ -32,13 +32,50 @@
         h2 {
             text-align: center;
         }
+        .login-form h1 {
+            text-align: center;
+        }
+        .login-form .error{
+            font-size: 10px;
+        }
+
+        .cycle {
+            margin-top: 50px;
+        }
+        .cycle ul {
+            list-style: none;
+            display: flex;
+            background-color: gray;
+            height: 40px;
+        }
+
+        .cycle li {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: white;
+            flex-grow: 5;
+            padding: 1px;
+            margin-right: 5px;
+        }
+
+        .cycle li:hover{
+            background-color: #ff8eb1;
+        }
+
+        .today{
+            border: 2px solid palevioletred;
+            border-radius: 10px;
+        }
+
     </style>
 <meta charset="UTF-8">
 <title>Flow</title>
 </head>
 <body>
 
-         <h2>Flow 🎈</h2>
+         <h2>Flow ❣️</h2>
 
         {% block content %}
 

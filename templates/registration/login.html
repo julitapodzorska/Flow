@@ -7,6 +7,10 @@
 <div class="login-form">
     <form method="post">
         {% csrf_token %}
+        <h1>Logowanie</h1><br>
+        {% for error in form.non_field_errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
         Nazwa użytkownika: <br>
         {{ form.username }}<br>
         Hasło: <br>

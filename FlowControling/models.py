@@ -6,15 +6,16 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 BLEEDING = (
 
-        (0, 'brak'),
-        (1, 'słabe'),
-        (2, 'umiarkowane'),
-        (3, 'obfite'),
+        (0, '-'),
+        (1, 'brak'),
+        (2, 'słabe'),
+        (3, 'umiarkowane'),
+        (4, 'obfite'),
 
 )
 
 PAIN = (
-
+        (0, '-'),
         (1, 'słaby'),
         (2, 'umiarkowany'),
         (3, 'silny'),
@@ -22,7 +23,7 @@ PAIN = (
 
 
 MOOD = (
-
+        (0, '-'),
         (1, 'radosny'),
         (2, 'wrażliwy'),
         (3, 'smutny'),
@@ -30,16 +31,16 @@ MOOD = (
 )
 
 SEX = (
-
+        (0, '-'),
         (1, 'z zabezpieczeniem'),
         (2, 'bez zabezpieczenia'),
 )
 
 ENERGY = (
+        (0, '-'),
         (1, 'niski'),
         (2, 'wysoki'),
-        (3, 'wyczerany'),
-
+        (3, 'wyczerpany'),
 )
 
 class MyUserManager(BaseUserManager):
@@ -75,6 +76,6 @@ class HealthData(models.Model):
     mood = models.IntegerField(choices=MOOD)
     sex = models.IntegerField(choices=SEX)
     energy = models.IntegerField(choices=ENERGY)
-    notes = models.CharField(max_length=256)
+    notes = models.CharField(max_length=256, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-
+    date = models.DateField()

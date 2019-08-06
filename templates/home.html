@@ -4,8 +4,59 @@
 
 
 {% block content %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
+    <p>Cześć {{ user.username }}!</p>
+    Średnia długosc cyklu to {{ user.avg_cycle }} dni. <br>
+    Twój cykl rozpoczął się {{ user.last_cycle }}
+    <div class="cycle">
+        <ul>
+            {% for i in cycle_length %}
+                {% if i == cycle_day%}
+                    <li class="today">{{ i }}</li>
+                {% elif i < cycle_day %}
+                    <li class="past">{{ i }}</li>
+                {% else %}
+                    <li class="future">{{ i }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="health-form">
+        {% if form %}
+            <form action="" method="post">
+            {% csrf_token %} 
+                {{ form }}
+                <input type="submit" value="Wyślij">
+            </form>
+        {% endif %}
+    </div>
+  <p><a href="{% url 'logout' %}">Wyloguj</a></p>
+
+    <script>
+        elements = document.querySelectorAll(".past, .today, .future");
+        elements2 = document.querySelectorAll(".past, .today");
+        hidden_input = document.querySelector("input[name=date_offset]");
+
+        let saved_day = "0";
+        for (let element of elements){
+            element.onmouseenter = function () {
+                saved_day = this.textContent;
+                this.textContent = getDate();
+            }
+
+            element.onmouseleave = function () {
+                this.textContent = saved_day;
+            }
+        }
+
+
+        function getDate() {
+            let d = new Date();
+            d.setDate( d.getDate() - ({{ cycle_day }} - parseInt(saved_day)));
+            let month = (d.getMonth()+1).toString().padStart(2, "0");
+            let day = d.getDate().toString().padStart(2, "0");
+            return (day + "." + month);
+        }
+    </script>
 {% endblock %}
 
 
