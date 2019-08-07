@@ -4,10 +4,24 @@
 
 {% block content %}
 
-    <div class="clearfix">
 
-	<a class="btn btn-info left" href="/calendar/{{ prev_month }}"><button>Poprzedni miesiąc</button></a>
-	<a class="btn btn-info left" href="/calendar/{{ next_month }}"><button>Następny miesiąc</button></a>
+    <div class="menu">
+
+        <a href="#"><i class="fa fa-fw fa-user"></i>Konto</a>
+        <a href="/"><i class="fa fa-fw fa-home"></i>Home</a>
+
+        <div class="to_the_center">
+            <a class="btn btn-info left" href="/calendar/{{ prev_month }}">Poprzedni miesiąc</a>
+            <a class="btn btn-info left" href="/calendar/{{ next_month }}">Następny miesiąc</a>
+        </div>
+
+        <div class="to_the_right">
+
+            <a href="https://www.facebook.com/julita.podzorska"><i class="fa fa-fw fa-facebook"></i></a>
+            <a href="https://www.instagram.com/julitapodzorska/"><i class="fa fa-fw fa-instagram"></i></a>
+
+            <a href="{% url 'logout' %}">Wyloguj</a>
+        </div>
 
     </div>
 
@@ -19,7 +33,7 @@
         }
 
     table{
-        margin-top: 10px;
+        margin-top: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -59,6 +73,11 @@
         font-size: larger;
 
 
+    }
+    .today {
+
+        border: none;
+        background-color: pink;
     }
 
     </style>

@@ -7,12 +7,12 @@
     <div class="menu">
 
         <a href="#"><i class="fa fa-fw fa-user"></i>Konto</a>
-        <a href="#"><i class="fa fa-fw fa-calendar"></i>Kalendarz</a>
-        <a href="{% url 'logout' %}">Wyloguj</a>
+        <a href="/calendar/0"><i class="fa fa-fw fa-calendar"></i>Kalendarz</a>
         <div class="to_the_right">
 
             <a href="https://www.facebook.com/julita.podzorska"><i class="fa fa-fw fa-facebook"></i></a>
             <a href="https://www.instagram.com/julitapodzorska/"><i class="fa fa-fw fa-instagram"></i></a>
+            <a href="{% url 'logout' %}">Wyloguj</a>
 
         </div>
     </div>
@@ -21,7 +21,7 @@
         <p>Cześć {{ user.first_name }}!</p>
         Średnia długosc cyklu to {{ user.avg_cycle }} dni.
         <br> Twój cykl rozpoczął się {{ user.last_cycle }}
-        <br> Dni płodne oznaczone są kolorem niebieskim! 💙
+        <br> Kolor niebieski wyznacza dni płodne! 🦋
     </div>
 
     <div class="cycle">
@@ -91,5 +91,4 @@
     </script>
 
 {% endblock %}
-
 
