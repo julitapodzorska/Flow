@@ -61,7 +61,6 @@ class MyUserManager(BaseUserManager):
         return user
 
 
-
 class User(AbstractUser):
     last_cycle = models.DateField()
     avg_cycle = models.IntegerField()
@@ -76,5 +75,11 @@ class HealthData(models.Model):
     sex = models.IntegerField(choices=SEX)
     energy = models.IntegerField(choices=ENERGY)
     notes = models.CharField(max_length=256, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
+
+
+class CycleLength(models.Model):
+    length = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+

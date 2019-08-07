@@ -13,8 +13,6 @@ DATE = (
 
 
 
-
-
 class CustomUserCreationForm(UserCreationForm):
     username = forms.CharField(label = "Nazwa użytkownika", max_length=64)
     first_name = forms.CharField(label="Imię",max_length=30, required=True)
