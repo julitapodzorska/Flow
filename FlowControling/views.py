@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
-from django.views import View
+from django.views import View, generic
 from datetime import timedelta, date
 from FlowControling.models import HealthData, User, CycleLength
 from FlowControling.forms import HealthForm
-
-
+from .calendar import Calendar
+from django.utils.safestring import mark_safe
 
 class HomePage(View):
     def get(self, request):
@@ -102,3 +102,26 @@ def computeAverageCycle(cycles_lengths):
         average += cycle_length.length
     average /= len(cycles_lengths)
     return int(average)
+
+
+class CalendarView(View):
+    def get(self, request, delta):
+        print(delta)
+        day = date.today().day
+        year = date.today().year
+        month = date.today().month - delta
+        if month < 1:
+            month = 12 + month
+            year -= 1
+
+
+
+        prev_month = delta+1
+        next_month = delta-1 if delta > 0 else 0
+        user = User.objects.get(username=request.user.username)
+        data = HealthData.objects.filter(user=user)
+        calendar = Calendar(year, month, data)
+        html_calendar = calendar.formatmonth(year, month)
+        context = {'calendar':mark_safe(html_calendar), "next_month": next_month, "prev_month": prev_month}
+        return render(request, 'calendar.html', context)
+

@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block content %}
+
+    <div class="clearfix">
+
+	<a class="btn btn-info left" href="/calendar/{{ prev_month }}"><button>Poprzedni miesiąc</button></a>
+	<a class="btn btn-info left" href="/calendar/{{ next_month }}"><button>Następny miesiąc</button></a>
+
+    </div>
+
+
+    {{ calendar }}
+    <style>
+        body{
+            color: black;
+        }
+
+    table{
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    th{
+
+
+    }
+    td{
+        outline: 1px solid pink;
+        {#width: 100px;#}
+        {#height: 100px;#}
+    }
+
+     ul{
+         margin-left: -10px;
+         list-style: none;
+         width: 125px;
+         height: 70px;
+    }
+
+     li{
+         margin-left: -10px;
+         font-size: 10px;
+
+     }
+    .date{
+        display: flex;
+        justify-content: left ;
+        margin-left: 10px;
+        font-size: 15px;
+    }
+
+    .month{
+        margin-bottom: 20px;
+        font-size: larger;
+
+
+    }
+
+    </style>
+
+
+{% endblock %}
+
+
