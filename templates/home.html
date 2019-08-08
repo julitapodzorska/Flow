@@ -26,29 +26,23 @@
 
     <div class="cycle">
         <ul>
-            {% for i in cycle_length %}
+            {% for i in cycle_list %} {# petla for iterujemy przez kontener z danymi #}
 
-                {% if i == cycle_day%}
-                    {% if i <= bleeding_days %}
-                        <li class="today bleeding">{{ i }}</li>
-                    {% elif i >= ovulation_start and i <= ovulation_end %}
-                        <li class="today ovulation">{{ i }}</li>
+                {% if forloop.counter == cycle_day%}
+                    {% if i == "bleeding" %}
+                        <li class="today bleeding">{{ forloop.counter }}</li>
+                    {% elif i == "ovulation" %}
+                        <li class="today ovulation">{{ forloop.counter }}</li>
                     {% else %}
-                        <li class="today">{{ i }}</li>
-                    {% endif %}
-                {% elif i < cycle_day %}
-                     {% if i <= bleeding_days %}
-                        <li class="past bleeding">{{ i }}</li>
-                     {% elif i >= ovulation_start and i <= ovulation_end %}
-                        <li class="past ovulation">{{ i }}</li>
-                    {% else %}
-                        <li class="past">{{ i }}</li>
+                        <li class="today">{{ forloop.counter }}</li>
                     {% endif %}
                 {% else %}
-                    {% if i >= ovulation_start and i <= ovulation_end %}
-                        <li class="future ovulation">{{ i }}</li>
+                     {% if i == "bleeding"%}
+                        <li class="bleeding">{{ forloop.counter }}</li>
+                     {% elif i == "ovulation" %}
+                        <li class="ovulation">{{ forloop.counter }}</li>
                     {% else %}
-                        <li class="future">{{ i }}</li>
+                        <li>{{ forloop.counter }}</li>
                     {% endif %}
                 {% endif %}
 
@@ -69,8 +63,9 @@
 
 
     <script>
-        elements = document.querySelectorAll(".past, .today, .future");
-        let saved_day = "0";
+        elements = document.querySelectorAll(".cycle li");
+        let saved_day;
+
         for (let element of elements){
             element.onmouseenter = function () {
                 saved_day = this.textContent;
@@ -81,14 +76,17 @@
                 this.textContent = saved_day;
             }
         }
+
         function getDate() {
-            let d = new Date();
-            d.setDate( d.getDate() - ({{ cycle_day }} - parseInt(saved_day)));
-            let month = (d.getMonth()+1).toString().padStart(2, "0");
-            let day = d.getDate().toString().padStart(2, "0");
+            let date = new Date();
+            date.setDate( date.getDate() - ({{ cycle_day }} - parseInt(saved_day)));
+            let month = (date.getMonth()+1).toString().padStart(2, "0");
+            let day = date.getDate().toString().padStart(2, "0");
             return (day + "." + month);
         }
+
     </script>
 
 {% endblock %}
+
 

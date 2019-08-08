@@ -1,5 +1,4 @@
 from calendar import HTMLCalendar
-from .models import HealthData
 from datetime import date
 
 
@@ -30,4 +29,3 @@ class Calendar(HTMLCalendar):
                 return f"<td class='today'><span class='date'>{day}</span><ul> {events_html} </ul></td>"
             return f"<td><span class='date'>{day}</span><ul> {events_html} </ul></td>"
         return '<td></td>'
-
