@@ -100,6 +100,16 @@ DATABASES = {
 }
 
 
+# DATABASES = {
+#     'default': {
+#         'HOST': 'localhost',
+#         'NAME': 'flow',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'USER': 'julitapodzorska',
+#         'PASSWORD': ''
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
