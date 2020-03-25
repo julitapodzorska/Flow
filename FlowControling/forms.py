@@ -39,3 +39,12 @@ class HealthForm(forms.Form):
     sex = forms.ChoiceField(choices=SEX, label="Seks")
     energy = forms.ChoiceField(choices=ENERGY, label="Poziom energii")
     date = forms.ChoiceField(choices=DATE, label="Dzień")
+
+
+class ChangeDetailsForm(forms.Form):
+    first_name = forms.CharField(label="Imię",max_length=30, required=False)
+    last_name = forms.CharField(label="Nazwisko",max_length=30, required=False)
+    email = forms.EmailField(label="E-mail",max_length=254, required=False)
+    last_cycle = forms.DateField(widget=forms.SelectDateWidget, label="Data ostatniego cyklu", required=False, help_text="Data rozpoczęcia ostatniego krwawienia.")
+    avg_cycle = forms.IntegerField(widget=forms.NumberInput,label="Średnia długość cyklu",required=False, help_text="Cykl rozpoczyna się pierwszego dnia krwawienia i kończy pierwszego dnia następnego krwawienia. Trwa średnio 26 dni.", min_value=1, max_value=50)
+

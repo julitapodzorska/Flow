@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% csrf_token %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+
+<div class="menu">
+
+    <div class="flow">
+        <a href="/"><i class="fa fa-fw fa-user"></i>Konto</a>
+    </div>
+
+    <div class="to_the_right">
+
+        <a href="https://www.facebook.com/julita.podzorska"><i class="fa fa-fw fa-facebook"></i></a>
+        <a href="https://www.instagram.com/julitapodzorska/"><i class="fa fa-fw fa-instagram"></i></a>
+
+    </div>
+
+</div>
+
+{#    <div class="flow-headder">#}
+{##}
+{#        <p>O aplikacji</p>#}
+{##}
+{#    </div>#}
+
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/plugins/wordCloud.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/frozen.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script>
+am4core.ready(function() {
+
+// Themes begin
+am4core.useTheme(am4themes_frozen);
+am4core.useTheme(am4themes_animated);
+// Themes end
+
+
+var chart = am4core.create("chartdiv", am4plugins_wordCloud.WordCloud);
+var series = chart.series.push(new am4plugins_wordCloud.WordCloudSeries());
+
+series.accuracy = 4;
+series.step = 15;
+series.rotationThreshold = 0.7;
+series.maxCount = 200;
+series.minWordLength = 2;
+series.labels.template.margin(4,4,4,4);
+series.maxFontSize = am4core.percent(30);
+
+series.text = "Menstruacja, okres, kobiecość, PMS, piękno, zdrowie, FLOW, kobieta, seks, " +
+    " intymność, Period, cramps, owulacja, owulacja, owulacja, owulacja krwawienie, miłość," +
+    " miłość, miłość, kochamsiebie, kochamsiebie, selfcare, ciąża, macierzyństwo, selfcare, selfcare, selfcare" +
+    " planowanie, kalendarzyk, super, kochamsiebie, dbam, FLOW, FLOW, FLOW, FLOW, FLOW, FLOW, FLOW, kobieta, kobieta, zdrowie, zdrowie";
+
+series.colors = new am4core.ColorSet();
+series.colors.passOptions = {}; // makes it loop
+
+//series.labelsContainer.rotation = 45;
+series.angles = [0,-90];
+series.fontWeight = "700"
+
+setInterval(function () {
+  series.dataItems.getIndex(Math.round(Math.random() * (series.dataItems.length - 1))).setValue("value", Math.round(Math.random() * 10));
+ }, 10000)
+
+}); // end am4core.ready()
+</script>
+    <style>
+    #chartdiv {
+        height: 300px;
+        width: 100%;
+    }
+    </style>
+<div id="chartdiv"></div>
+
+
+
+    <div class="flow">
+
+        <p>Czym jest Flow?</p>
+
+    </div>
+
+    <div class="about">
+
+        <p>Jeśli zastanawiasz się, kiedy ostatnio miałaś miesiączkę lub chciałabyś wiedzieć
+            kiedy możesz spodziewać się dni płodnych korzystasz z Flow! Aplikacja na bieżąco
+            śledzi Twój cykl oraz oblicza jego średnią długość na podstawie wprowadzanych przez Ciebie danych.</p>
+
+    </div>
+
+    <div class="flow">
+
+        <p>Komu się przyda?</p>
+
+    </div>
+
+    <div class="about">
+
+        <p>Każdej kobiecie niezależnie od wieku. Siostrze, mamie, przyjaciółce, sąsiądce!</p>
+
+    </div>
+
+
+
+{% endblock %}
+

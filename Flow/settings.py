@@ -22,10 +22,19 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'uquz28uj%5-myeafkm8miy@dgcj-(8-xug-%k2lk7^n&%u(i53'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
+
+# SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = True
+
+DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
+
+
+
+ALLOWED_HOSTS = ['192.168.0.187', '192.168.1.2', '192.168.1.9', '77.253.187.165', '127.0.0.1', '127.0.0.1:8000', '178.37.153.174',
+                 'flowcontrol.duckdns.org⁠‪‬']
 
 
 # Application definition
@@ -39,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'FlowControling',
     'accounts',
-
 
 ]
 
@@ -111,9 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 USE_I18N = True
 

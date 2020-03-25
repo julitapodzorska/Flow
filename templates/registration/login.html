@@ -4,10 +4,22 @@
 
 
 {% block content %}
+<div class="menu">
+
+    <a href="/about">O aplikacji ❤</a>
+    <div class="to_the_right">
+
+        <a href="https://www.facebook.com/julita.podzorska"><i class="fa fa-fw fa-facebook"></i></a>
+        <a href="https://www.instagram.com/julitapodzorska/"><i class="fa fa-fw fa-instagram"></i></a>
+
+    </div>
+</div>
+
 <div class="login-form">
     <form method="post">
         {% csrf_token %}
-        <h1>Logowanie</h1><br>
+        <h1>Flow</h1>
+        <h2>Logowanie</h2><br>
         {% for error in form.non_field_errors %}
             <p class="error">{{ error }}</p>
         {% endfor %}

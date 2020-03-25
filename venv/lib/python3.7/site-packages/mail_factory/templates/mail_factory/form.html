@@ -1,0 +1,111 @@
+{% extends "mail_factory/base.html" %}
+{% load i18n %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="breadcrumbs">
+            <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+            &rsaquo; <a href="{% url 'mail_factory_list' %}">Mail Factory</a>
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block extrahead %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                $('.content-switcher').click(function(e) {
+                    e.preventDefault();
+
+                    var old = $(this).parent().parent().find('.focus');
+
+                    old.toggleClass('focus');
+
+                    $(old.data('target')).hide();
+
+                    $(this).toggleClass('focus');
+
+                    $($(this).data('target')).show();
+                });
+            });
+        })(jQuery);
+    </script>
+
+    <style type="text/css">
+        .focus {
+            font-weight: bold;
+        }
+
+        .choices {
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .choices li {
+            list-style-type: none;
+            float: left;
+            margin-right: 10px;
+        }
+
+        .clear {
+            clear: both;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <div class="content">
+            {% if preview_messages|length > 1 %}
+            <h2>{% trans "View mail" %}</h2>
+            <div class="language-choices">
+                <ul class="choices">
+                {% for lang_code, message in preview_messages.items %}
+                    <li>
+                        <a href="#" data-lang="{{ lang_code }}" class="content-switcher{% if LANGUAGE_CODE == lang_code %} focus{% endif %}" data-target="#email-{{ lang_code }}">{{ lang_code }}</a>
+                    </li>
+                {% endfor %}
+                </ul>
+                <div class="clear"></div>
+            </div>
+            {% endif %}
+
+            <div class="content-choices">
+                <ul class="choices">
+                    {% for lang_code, message in preview_messages.items %}
+                        <li{% if LANGUAGE_CODE != lang_code %} style="display: none;"{% endif %} id="email-{{ lang_code }}">
+                            <div class="email-message">
+                                {% if message.html %}
+                                    <a href="{% url "mail_factory_preview_message" lang_code mail_name %}">{% trans  "View html alternative" %}</a>
+                                {% endif %}
+                                <h3>
+                                    {{ message.subject }}
+                                </h3>
+
+                                <div id="body-text-{{ lang_code }}">
+                                    {{ message.body|linebreaks }}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <hr />
+
+        <div class="content">
+            <h2>Send mail</h2>
+            <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+                <form method="post">{% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Get HTML mail content" />
+                    <input type="submit" name="raw" value="Get raw mail" /><br/>
+                    <input type="text" name="email" value="" placeholder="{% trans "Email to send to" %}" />
+                    <input type="submit" name="send" value="Send to mail" />
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

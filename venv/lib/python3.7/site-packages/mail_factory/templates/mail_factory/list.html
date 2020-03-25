@@ -1,0 +1,34 @@
+{% extends "mail_factory/base.html" %}
+
+{% block content %}
+    <div id="content-main">
+        <div class="module{% if cl.has_filters %} filtered{% endif %}" id="changelist">
+            {% block result_list %}
+                <div class="results">
+                    <table id="result_list">
+                        <thead>
+                            <tr>
+                                <th scope="col">
+                                    <div class="text">Email</div>
+                                    <div class="clear"></div>
+                                </th>
+                                <th scope="col">
+                                    <div class="text">Template</div>
+                                    <div class="clear"></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for template_name, mail_name in mail_map %}
+                                <tr class="{% cycle 'row1' 'row2' %}">
+                                    <th class="nowrap"><a href="{% url "mail_factory_form" template_name %}">{{ mail_name }}</a></th>
+                                    <td>{{ template_name }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

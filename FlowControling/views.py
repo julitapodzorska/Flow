@@ -2,42 +2,44 @@ from django.shortcuts import render, redirect
 from django.views import View
 from datetime import timedelta, date
 from FlowControling.models import HealthData, User, CycleLength
-from FlowControling.forms import HealthForm
+from FlowControling.forms import HealthForm,  ChangeDetailsForm
 from .calendar import Calendar
 from django.utils.safestring import mark_safe
 
 class HomePage(View):
     def get(self, request):
         form = HealthForm()
-        if request.user.is_authenticated: #jesli uzytkownik jest zautentyfikowany
-            user = User.objects.get(username=request.user.username) # pobieramy jego dane
+        if request.user.is_authenticated:
+            user = User.objects.get(username=request.user.username)
 
-            if not CycleLength.objects.filter(user=user): # jesli uzytkownik nie ma danych dotyczacych dlugosci cyklu
-                cycle_length = CycleLength.objects.create(length= user.avg_cycle, user=user) # tworzymy obiekt z wprowadzonymi danymi
+            if not CycleLength.objects.filter(user=user):
+                cycle_length = CycleLength.objects.create(length= user.avg_cycle, user=user)
+
 
             ovulation_end = int(user.avg_cycle /2)
             ovulation_start = ovulation_end - 6
 
-            cycle_day = date.today() - user.last_cycle # aktualny dzien cyklu zwraca datę
-            cycle_day = int(cycle_day.days) +1 # zamieniamy na dni w incie i dodajemy 1, jesli roznica jest rowna 0 znaczy, ze jestesmy w pierwszym dniu cyklu
+            cycle_day = date.today() - user.last_cycle
+            cycle_day = int(cycle_day.days) +1
 
-            if cycle_day > user.avg_cycle: # jesli aktualny cykl jest dluzszy od sredniej dlugosci cyklu
-                cycle_length = cycle_day # to przypisujemy mu wartosc aktualnego dnia cyklu
+            if cycle_day > user.avg_cycle:
+                cycle_length = cycle_day
             else:
-                cycle_length = user.avg_cycle # jesli nie to dlugosc jest rowna sredniej dlugosci
+                cycle_length = user.avg_cycle
 
-            cycle_list = [] # kontener na zawartosc paska
-            for i in range(cycle_length): # petla wykona się tyle razy ile dni jest w cyklu
-                day = user.last_cycle + timedelta(days=i) #bierzemy kolejno dni cyklu
-                if HealthData.objects.filter(user=user).filter(date=day).filter(bleeding__gte=1): # i dla każdego po kolei sprawdzamy, jakie ma dane w bazie
-                    cycle_list.append("bleeding") # jesli bleeding jest wiekszy niz 1(choices) to znaczy, ze bleeding
-                elif ovulation_start <= i <= ovulation_end: # jesli dzien jest w zakresie owulacji, oznacza, że na ten dzien jest dana owulacja
+
+            cycle_list = []
+            for i in range(cycle_length):
+                day = user.last_cycle + timedelta(days=i)
+                if HealthData.objects.filter(user=user).filter(date=day).filter(bleeding__gte=1):
+                    cycle_list.append("bleeding")
+                elif ovulation_start <= i <= ovulation_end:
                     cycle_list.append("ovulation")
                 else:
-                    cycle_list.append("none") #jesli nie ma zadnej danej = none
+                    cycle_list.append("none")
             # cycle_list[0] = "bleeding" #pierwszy element cyklu = bleeding(foreva)
 
-            context = {'cycle_list': cycle_list,'cycle_day' : cycle_day, 'form': form} # do html'a wysyłamy cały kontener z danymi, aktualny dzien cyklu i formularz.
+            context = {'cycle_list': cycle_list,'cycle_day' : cycle_day, 'form': form}
             return render(request, 'home.html', context)
         else:
             return redirect('/accounts/login')
@@ -54,14 +56,14 @@ class HomePage(View):
             form_date = form.cleaned_data['date']
 
             form_date = date.today() - timedelta(days=int(form_date))
-            date_diff = form_date - user.last_cycle
-            date_diff = int(date_diff.days)
+            cycle_day = form_date - user.last_cycle
+            cycle_day = int(cycle_day.days)
 
 
-            if (date_diff >= 7 or date_diff < 0) and int(bleeding) > 0:
-                if date_diff > 0:
+            if (cycle_day >= 7 or cycle_day < 0) and int(bleeding) > 0:
+                if cycle_day > 0:
                     cycle_length = CycleLength()
-                    cycle_length.length = date_diff
+                    cycle_length.length = cycle_day
                     cycle_length.user = user
                     cycle_length.save()
                     user.avg_cycle = computeAverageCycle(CycleLength.objects.filter(user=user))
@@ -88,7 +90,6 @@ class HomePage(View):
 
 
 def computeAverageCycle(cycles_lengths):
-    print(cycles_lengths)
     average = 0
     for cycle_length in cycles_lengths:
         average += cycle_length.length
@@ -108,8 +109,51 @@ class CalendarView(View):
         prev_month = delta+1
         next_month = delta-1 if delta > 0 else 0
         user = User.objects.get(username=request.user.username)
-        dupa = HealthData.objects.filter(user=user)
-        calendar = Calendar(year, month, dupa)
+        data = HealthData.objects.filter(user=user)
+        calendar = Calendar(year, month, data)
         html_calendar = calendar.formatmonth(year, month)
         context = {'calendar':mark_safe(html_calendar), "next_month": next_month, "prev_month": prev_month}
         return render(request, 'calendar.html', context)
+
+
+class AccountView(View):
+    def get(self, request):
+        form = ChangeDetailsForm()
+        if request.user.is_authenticated:
+            context = {'form': form}
+            return render(request, 'account.html', context)
+        else:
+            return redirect('/accounts/login')
+
+    def post(self, request):
+        form = ChangeDetailsForm(request.POST)
+        user = User.objects.get(username=request.user.username)
+
+        if form.is_valid():
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            last_cycle = form.cleaned_data['last_cycle']
+            avg_cycle = form.cleaned_data['avg_cycle']
+
+            if first_name != None and first_name:
+                user.first_name = first_name
+            if last_name != None and last_name:
+                user.last_name = last_name
+            if email != None and email:
+                user.email = email
+            if last_cycle != None:
+                user.last_cycle = last_cycle
+            if avg_cycle != None:
+                CycleLength.objects.filter(user=user).delete()
+                user.avg_cycle = avg_cycle
+            user.save()
+            print(user.first_name, user.last_cycle, user.email, user.last_cycle, user.avg_cycle)
+        return redirect('/account')
+
+
+class StartView(View):
+    def get(self, request):
+        return render(request, 'start.html')
+
+

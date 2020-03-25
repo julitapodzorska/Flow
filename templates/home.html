@@ -6,7 +6,7 @@
 
     <div class="menu">
 
-        <a href="#"><i class="fa fa-fw fa-user"></i>Konto</a>
+        <a href="/account"><i class="fa fa-fw fa-user"></i>Konto</a>
         <a href="/calendar/0"><i class="fa fa-fw fa-calendar"></i>Kalendarz</a>
         <div class="to_the_right">
 
@@ -17,11 +17,12 @@
         </div>
     </div>
 
+
     <div class="welcome">
         <p>Cześć {{ user.first_name }}!</p>
         Średnia długosc cyklu to {{ user.avg_cycle }} dni.
         <br> Twój cykl rozpoczął się {{ user.last_cycle }}
-        <br> Kolor niebieski wyznacza dni płodne! 🦋
+        <br> Kolor niebieski wyznacza dni płodne!
     </div>
 
     <div class="cycle">
@@ -64,6 +65,8 @@
 
     <script>
         elements = document.querySelectorAll(".cycle li");
+        health_form = document.querySelector(".health-form");
+        health_form.visibility = "hidden";
         let saved_day;
 
         for (let element of elements){
@@ -74,6 +77,10 @@
 
             element.onmouseleave = function () {
                 this.textContent = saved_day;
+            }
+
+            element.onclick = function () {
+                health_form.visible = true;
             }
         }
 
@@ -88,5 +95,4 @@
     </script>
 
 {% endblock %}
-
 
