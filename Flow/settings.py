@@ -88,15 +88,15 @@ WSGI_APPLICATION = 'Flow.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'HOST': 'localhost',
-        'NAME': 'flow',
-        'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'julitapodzorska',
-        'PASSWORD': ''
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'HOST': 'localhost',
+#         'NAME': 'flow',
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'USER': 'julitapodzorska',
+#         'PASSWORD': ''
+#     }
+# }
 
 
 # Password validation
