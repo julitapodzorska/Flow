@@ -36,7 +36,7 @@ DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
 
 ALLOWED_HOSTS = ['192.168.0.187', '192.168.1.2', '192.168.1.9', '77.253.187.165', '127.0.0.1', '127.0.0.1:8000', '178.37.153.174',
-                 'flowcontrol.duckdns.org⁠‪‬']
+                 'flowcontrol.duckdns.org', 'julitapythonista.pythonanywhere.com']
 
 
 # Application definition
@@ -90,11 +90,12 @@ WSGI_APPLICATION = 'Flow.wsgi.application'
 
 DATABASES = {
     'default': {
-        'HOST': 'localhost',
+        'HOST': 'julitapythonista-1546.postgres.pythonanywhere-services.com',
         'NAME': 'flow',
         'ENGINE': 'django.db.backends.postgresql',
-        'USER': 'julitapodzorska',
-        'PASSWORD': ''
+        'USER': 'super',
+        'PASSWORD': 'jyjpem-jezqiz-pejXi8',
+        'PORT' : '11546'
     }
 }
 
