@@ -28,6 +28,8 @@ class Calendar(HTMLCalendar):
                     events_html += f'<li style="color: deepgray"> Seks {event.get_sex_display()} </li>'
                 if event.mood:
                     events_html += f'<li style="color: deepgray"> Nastrój {event.get_mood_display()} </li>'
+                if event.different:
+                    events_html += f'<li style="color: deepgray"> Inne dolegliwości: {event.get_different_display()} </li>'
             if current_day == date.today():
                 return f"<td class='today'><span class='date'>{day}</span><ul> {events_html} </ul></td>"
             return f"<td><span class='date'>{day}</span><ul> {events_html} </ul></td>"
