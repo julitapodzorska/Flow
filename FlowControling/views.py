@@ -28,7 +28,7 @@ class HomePage(View):
 
             user = User.objects.get(username=request.user.username)
             if not CycleLength.objects.filter(user=user):
-                cycle_length = CycleLength.objects.create(length= user.avg_cycle, user=user)
+                cycle_length = CycleLength.objects.create(length=user.avg_cycle, user=user)
                 welcome_mail(user.email)
                 print("works!")
 
@@ -173,3 +173,9 @@ class StartView(View):
         return render(request, 'start.html')
 
 
+class DeleteAccount(View):
+    def get(self, request):
+        user = User.objects.get(username=request.user.username)
+        CycleLength.objects.filter(user=user).delete()
+        user.delete()
+        return redirect("/")
