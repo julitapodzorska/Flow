@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from FlowControling.views import HomePage, CalendarView, AccountView, StartView
+from FlowControling.views import HomePage, CalendarView, AccountView, StartView, DeleteAccount
 from django.urls import path, include
 
 
@@ -28,6 +28,7 @@ urlpatterns = [
     path('calendar/<int:delta>/', CalendarView.as_view()),
     path('account', AccountView.as_view()),
     path('about', StartView.as_view()),
+    path('account/delete', DeleteAccount.as_view()),
 
 
 ]
