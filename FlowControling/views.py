@@ -16,7 +16,7 @@ def welcome_mail(user_mail):
                                 ' mi o '
                                 'swoim doświadczeniu z Flow napisz do mnie!'
                                 ' ☺️ \n \n \n \n '
-                                'Ściskam \n ' 
+                                'Ściskam \n '
                                 'Julita \n'
                                 '❤️',
               'wedoourbestatflow@gmail.com', email, fail_silently=False)
@@ -179,4 +179,3 @@ class DeleteAccount(View):
         CycleLength.objects.filter(user=user).delete()
         user.delete()
         return redirect("/")
-
