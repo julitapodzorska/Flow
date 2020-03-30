@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4dbb6abf-eb67-425c-b7ea-9f6ba0c5de38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Flow/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Flow/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlowControling/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/FlowControling/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,21 +24,6 @@
         <option value="Python Script" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>choices</find>
-      <find>StudentGradesForm</find>
-      <find>school_class</find>
-      <find>StudentForm</find>
-      <find>hidden</find>
-      <find>exi</find>
-      <find>day</find>
-      <find>cycle_length</find>
-      <find>print</find>
-      <find>cha</find>
-      <find>debug</find>
-    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
