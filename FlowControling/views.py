@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.views import View
 from datetime import timedelta, date
@@ -5,16 +6,31 @@ from FlowControling.models import HealthData, User, CycleLength
 from FlowControling.forms import HealthForm,  ChangeDetailsForm
 from .calendar import Calendar
 from django.utils.safestring import mark_safe
+from django.core.mail import send_mail
+
+def welcome_mail(user_mail):
+    email = [str(user_mail)]
+    send_mail('Witaj we Flow!', 'Twoje konto zostało utworzone. '
+                                'Cieszę się, że ze mną jesteś! \n '
+                                'Jeśli masz pytania lub chciałabyś opowiedzieć'
+                                ' mi o '
+                                'swoim doświadczeniu z Flow napisz do mnie!'
+                                ' ☺️ \n \n \n \n '
+                                'Ściskam \n ' 
+                                'Julita \n'
+                                '❤️',
+              'wedoourbestatflow@gmail.com', email, fail_silently=False)
 
 class HomePage(View):
     def get(self, request):
         form = HealthForm()
         if request.user.is_authenticated:
-            user = User.objects.get(username=request.user.username)
 
+            user = User.objects.get(username=request.user.username)
             if not CycleLength.objects.filter(user=user):
                 cycle_length = CycleLength.objects.create(length= user.avg_cycle, user=user)
-
+                welcome_mail(user.email)
+                print("works!")
 
             ovulation_end = int(user.avg_cycle /2)
             ovulation_start = ovulation_end - 6
