@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import User, BLEEDING, PAIN, MOOD, SEX, ENERGY
+from .models import User, BLEEDING, PAIN, MOOD, SEX, ENERGY, DIFFERENT
 
 DATE = (
 
@@ -38,6 +38,7 @@ class HealthForm(forms.Form):
     mood = forms.ChoiceField(choices=MOOD, label="Nastrój")
     sex = forms.ChoiceField(choices=SEX, label="Seks")
     energy = forms.ChoiceField(choices=ENERGY, label="Poziom energii")
+    different = forms.ChoiceField(choices=DIFFERENT, label="Inne")
     date = forms.ChoiceField(choices=DATE, label="Dzień")
 
 

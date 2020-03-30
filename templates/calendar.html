@@ -8,7 +8,7 @@
     <div class="menu">
 
         <a href="/account"><i class="fa fa-fw fa-user"></i>Konto</a>
-        <a href="/"><i class="fa fa-fw fa-home"></i>Home</a>
+        <a href="/"><i class="fa fa-fw fa-venus"></i>Cykl</a>
 
         <div class="to_the_center">
             <a class="btn btn-info left" href="/calendar/{{ prev_month }}">Poprzedni miesiąc</a>
@@ -16,83 +16,68 @@
         </div>
 
         <div class="to_the_right">
-
-            <a href="https://www.facebook.com/julita.podzorska"><i class="fa fa-fw fa-facebook"></i></a>
-            <a href="https://www.instagram.com/julitapodzorska/"><i class="fa fa-fw fa-instagram"></i></a>
-
             <a href="{% url 'logout' %}">Wyloguj</a>
         </div>
 
     </div>
 
+    <div class="calendar">
+         {{ calendar }}
+    </div>
 
-    {{ calendar }}
     <style>
-        body{
-            color: black;
-        }
 
-    table{
+    .calendar{
+
+    margin-bottom:110px;
+    color: black;
+    }
+    .calendar table{
         margin-top: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-
     }
 
-    th{
+    .calendar th{
 
 
     }
-    td{
+    .calendar td{
         outline: 1px solid pink;
         box-sizing: border-box;
     }
 
-     ul{
+     .calendar ul{
          margin-left: -10px;
          list-style: none;
          width: 125px;
          height: 70px;
     }
 
-     li{
+    .calendar li{
          margin-left: -10px;
          font-size: 10px;
 
      }
-    .date{
+    .calendar .date{
         display: flex;
         justify-content: left ;
         margin-left: 10px;
         font-size: 15px;
     }
 
-    .month{
+    .calendar .month{
         margin-bottom: 20px;
         font-size: larger;
     }
-    .today {
+    .calendar .today {
         border: double;
-        background-color: pink;
+        background-color;
     }
 
     </style>
 
-<footer class="footer">
-    <h6>Copyright © 2020 Julita Podżorska</h6>
-</footer>
-<style>
-
-    .footer {
-
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
-
-}
-
-</style>
 {% endblock %}
 
 

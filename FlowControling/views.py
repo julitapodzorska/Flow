@@ -1,4 +1,3 @@
-from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.views import View
 from datetime import timedelta, date
@@ -69,7 +68,9 @@ class HomePage(View):
             mood = form.cleaned_data['mood']
             sex = form.cleaned_data['sex']
             energy = form.cleaned_data['energy']
+            different = form.cleaned_data['different']
             form_date = form.cleaned_data['date']
+
 
             form_date = date.today() - timedelta(days=int(form_date))
             cycle_day = form_date - user.last_cycle
@@ -99,6 +100,7 @@ class HomePage(View):
             health_data.mood = mood
             health_data.sex = sex
             health_data.energy = energy
+            health_data.different = different
             health_data.user = user
             health_data.save()
         return redirect("/")
