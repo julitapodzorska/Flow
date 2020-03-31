@@ -33,13 +33,15 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class HealthForm(forms.Form):
+    date = forms.ChoiceField(choices=DATE, label="Dzień")
     bleeding = forms.ChoiceField(choices=BLEEDING, label="Krwawienie")
     pain = forms.ChoiceField(choices=PAIN, label="Ból")
     mood = forms.ChoiceField(choices=MOOD, label="Nastrój")
     sex = forms.ChoiceField(choices=SEX, label="Seks")
     energy = forms.ChoiceField(choices=ENERGY, label="Poziom energii")
-    different = forms.ChoiceField(choices=DIFFERENT, label="Inne")
-    date = forms.ChoiceField(choices=DATE, label="Dzień")
+    different = forms.MultipleChoiceField(choices=DIFFERENT, label="Inne", widget=forms.CheckboxSelectMultiple, required=False)
+
+
 
 
 class ChangeDetailsForm(forms.Form):

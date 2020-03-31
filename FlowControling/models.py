@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from multiselectfield import MultiSelectField
 
 
 # DATABASE MODELS
@@ -7,52 +8,53 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 BLEEDING = (
 
         (0, 'wybierz'),
-        (1, 'słabe'),
-        (2, 'umiarkowane'),
-        (3, 'obfite'),
+        (1, 'Słabe'),
+        (2, 'Umiarkowane'),
+        (3, 'Obfite'),
+        (4, 'Plamienie'),
 
 )
 
 PAIN = (
         (0, 'wybierz'),
-        (1, 'słaby'),
-        (2, 'umiarkowany'),
-        (3, 'silny'),
+        (1, 'Słaby'),
+        (2, 'Umiarkowany'),
+        (3, 'Silny'),
 )
 
 
 MOOD = (
         (0, 'wybierz'),
-        (1, 'radosny'),
-        (2, 'wrażliwy'),
-        (3, 'smutny'),
+        (1, 'Radosny'),
+        (2, 'Wrażliwy'),
+        (3, 'Smutny'),
         (4, 'PMS'),
-        (5, 'płaczliwość'),
-        (6, 'niepokój'),
+        (5, 'Płaczliwość'),
+        (6, 'Niepokój'),
 )
 
 SEX = (
         (0, 'wybierz'),
-        (1, 'z zabezpieczeniem'),
-        (2, 'bez zabezpieczenia'),
+        (1, 'Z zabezpieczeniem'),
+        (2, 'Bez zabezpieczenia'),
 )
 
 ENERGY = (
         (0, 'wybierz'),
-        (1, 'niski'),
-        (2, 'wysoki'),
-        (3, 'wyczerpany'),
+        (1, 'Niski'),
+        (2, 'Wysoki'),
+        (3, 'Wyczerpany'),
 )
 
 DIFFERENT = (
-    (0, 'wybierz'),
-    (1, 'ból piersi'),
-    (2, 'Obrzęk piersi'),
-    (3, 'Bóle mięśni'),
-    (4, 'Bezsenność'),
-    (5, 'Ból głowy'),
-    (6, 'Libido podniesione'),
-    (7, 'Libido obniżone'),
+
+    (1, 'Bóle mięśni'),
+    (2, 'Bezsenność'),
+    (3, 'Ból głowy'),
+    (4, 'Libido podniesione'),
+    (5, 'Libido obniżone'),
+    (6, 'Bolesne piersi'),
+    (7, 'Obrzęk piersi'),
 
 )
 
@@ -88,7 +90,7 @@ class HealthData(models.Model):
     mood = models.IntegerField(choices=MOOD)
     sex = models.IntegerField(choices=SEX)
     energy = models.IntegerField(choices=ENERGY)
-    different = models.IntegerField(choices=DIFFERENT)
+    different = MultiSelectField(choices=DIFFERENT)
     notes = models.CharField(max_length=256, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
@@ -97,4 +99,5 @@ class HealthData(models.Model):
 class CycleLength(models.Model):
     length = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 

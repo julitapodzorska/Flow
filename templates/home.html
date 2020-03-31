@@ -52,12 +52,14 @@
     <div class="health-form">
         {% if form %}
             <form action="" method="post">
-            {% csrf_token %} 
+            {% csrf_token %}
                 {{ form }}
-                <input type="submit" value="Wyślij">
+                <input class="send" type="submit" value="Wyślij">
             </form>
         {% endif %}
+
     </div>
+
 
 
     <script>
@@ -167,6 +169,43 @@
         background-size: .65em auto, 100%;
 }
 
+
+    #id_different {
+
+        color: black;
+        font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+        line-height: 1.5;
+        font-weight: bold;
+        font-size: 20px;
+        display: inline-block;
+
+    }
+    .send {
+
+        color: black;
+        padding-top:4px;
+        padding-bottom:4px;
+        padding-left:10px;
+        padding-right:10px;
+        border: 1px solid rgba(114,114,114,0.4);
+        border-radius: 1px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        box-shadow: 0 1px 0px rgba(114,114,114,0.3);
+        -moz-box-shadow: 0 1px 0px rgba(114,114,114,0.3);
+        -webkit-box-shadow: 0 1px 0px rgba(114,114,114,0.3);
+        background-color: pink;
+
+    }
+
+
+}
+
+    #id_date {
+
+    color: pink;
+
+    }
 </style>
 {% endblock %}
 

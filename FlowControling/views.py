@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from datetime import timedelta, date
-from FlowControling.models import HealthData, User, CycleLength
+from FlowControling.models import HealthData, User, CycleLength, DIFFERENT
 from FlowControling.forms import HealthForm,  ChangeDetailsForm
 from .calendar import Calendar
 from django.utils.safestring import mark_safe
@@ -29,7 +29,7 @@ class HomePage(View):
             if not CycleLength.objects.filter(user=user):
                 cycle_length = CycleLength.objects.create(length=user.avg_cycle, user=user)
                 welcome_mail(user.email)
-                print("works!")
+
 
             ovulation_end = int(user.avg_cycle /2)
             ovulation_start = ovulation_end - 6
@@ -70,7 +70,7 @@ class HomePage(View):
             energy = form.cleaned_data['energy']
             different = form.cleaned_data['different']
             form_date = form.cleaned_data['date']
-
+            print(different)
 
             form_date = date.today() - timedelta(days=int(form_date))
             cycle_day = form_date - user.last_cycle
