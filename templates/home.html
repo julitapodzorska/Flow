@@ -18,7 +18,7 @@
     <div class="welcome">
         <p>Cześć {{ user.first_name }}!</p>
         Poniżej znajdziesz swój bieżący cykl, którego średnia długość wynosi {{ user.avg_cycle }} dni.
-        <br> Twój cykl rozpoczął się {{ user.last_cycle }}
+        <br> Obecny cykl rozpoczął się {{ user.last_cycle }}
         <br> Kolor niebieski wyznacza dni płodne! <br><br>
     </div>
 
@@ -53,8 +53,50 @@
         {% if form %}
             <form action="" method="post">
             {% csrf_token %}
-                {{ form }}
-                <input class="send" type="submit" value="Wyślij">
+               {{ form.date.label }} {{ form.date }} {{ form.bleeding.label }}
+               {{ form.bleeding }} {{ form.pain.label }} {{ form.pain }}
+               {{ form.mood.label }} {{ form.mood }} {{ form.sex.label }}
+               {{ form.sex }} {{ form.energy.label }} {{ form.energy }} <br> <br>
+                <div class="different"> {{ form.different.label }}
+                    <div class="box">
+                        {{ form.different.0.tag }}
+                         <span class="check"></span>
+                        <label id="label" for="id_different_0">{{ form.different.0.choice_label }}</label>
+                    </div>
+                    <div class="box">
+                        {{ form.different.1.tag }}
+                         <span class="check"></span>
+                        <label id="label" for="id_different_1">{{ form.different.1.choice_label }}</label>
+                    </div>
+
+                    <div class="box">
+                        {{ form.different.2.tag }}
+                         <span class="check"></span>
+                        <label id="label" for="id_different_2">{{ form.different.2.choice_label }}</label>
+                    </div>
+                    <div class="box">
+                        {{ form.different.3.tag }}
+                         <span class="check"></span>
+                        <label id="label" for="id_different_3">{{ form.different.3.choice_label }}</label>
+                    </div>
+
+                    <div class="box">
+                        {{ form.different.4.tag }}
+                         <span class="check"></span>
+                        <label id="label" for="id_different_4">{{ form.different.4.choice_label }}</label>
+                    </div>
+                    <div class="box">
+                        {{ form.different.5.tag }}
+                         <span class="check"></span>
+                        <label id="label" for="id_different_5">{{ form.different.5.choice_label }}</label>
+                    </div>
+                    <div class="box">
+                        {{ form.different.6.tag }}
+                         <span class="check"></span>
+                        <label id="label" for="id_different_6">{{ form.different.6.choice_label }}</label>
+                    </div>
+                    <input class="send" type="submit" value="Dodaj!">
+                </div>
             </form>
         {% endif %}
 
@@ -98,7 +140,7 @@
 
 
     .cycle {
-        margin-top: 100px;
+        margin-top: 50px;
     }
     .cycle ul {
         display: flex;
@@ -132,6 +174,8 @@
         display: flex;
         justify-content: center;
         color: gray;
+        margin-bottom: 100px;
+
     }
     .bleeding{
         background-color: #ff075b;
@@ -152,7 +196,7 @@
         font-weight: 700;
         color: #444;
         padding: .5em 1.4em .5em .5em;
-        max-width: 10%;
+        max-width: 15%;
         box-sizing: border-box;
         margin: 0;
         border: 1px solid #aaa;
@@ -198,14 +242,67 @@
 
     }
 
+    form{
+        margin-left: 10px;
+    }
 
+.box {
+  width: 300px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+.box label {
+  font-size: 16px;
+  color: #4D4D4D;
+  position: absolute;
+  z-index: 10;
+  padding-left: 35px;
+  cursor: pointer;
+}
+.box input {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+}
+.box input:checked ~ .check {
+  border-color: grey;
+  box-shadow: 0px 0px 0px 15px pink inset;
+}
+.box input:checked ~ .check::after {
+  opacity: 1;
+  transform: scale(1);
+}
+.box .check {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 100px;
+  background-color: #FFF;
+  border: 2px solid grey;
+  box-shadow: 0px 0px 0px 0px #00EA90 inset;
+  transition: all 0.15s cubic-bezier(0, 1.05, 0.72, 1.07);
+}
+.box .check::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 4;
+  position: absolute;
+  transform: scale(0);
+  background-size: 50%;
+  background-image: url("http://s6.picofile.com/d/8392306668/c38c12a0-6db3-47d4-a80c-7dad8fab5186/checkmark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition-delay: 0.2s !important;
+  transition: all 0.25s cubic-bezier(0, 1.05, 0.72, 1.07);
 }
 
-    #id_date {
-
-    color: pink;
-
-    }
 </style>
 {% endblock %}
 
