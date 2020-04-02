@@ -25,9 +25,12 @@
         {{ form.username }}<br>
         Hasło: <br>
         {{ form.password }}<br><br>
+
     <button type="submit">Zaloguj!</button>
     </form>
     <a class="signup" href="/accounts/signup"><button>Załóż konto! </button></a>
+    <a href="{% url 'password_reset' %}"><button>Resetowanie hasła</button></a>
+
 </div>
 <style>
 

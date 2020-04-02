@@ -28,6 +28,7 @@ urlpatterns = [
     path('account', AccountView.as_view()),
     path('about', StartView.as_view()),
     path('account/delete', DeleteAccount.as_view()),
+    path('accounts/', include('django.contrib.auth.urls')),
 
 
 ]
