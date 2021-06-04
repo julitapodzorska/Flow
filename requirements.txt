@@ -1,4 +1,4 @@
-Django==2.2.4
+Django==2.2.21
 django-mail-factory==0.21
 django-multiselectfield==0.1.12
 gunicorn==19.9.0
